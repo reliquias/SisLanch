@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene Scope="Project" version="2">
+    <Scope Scope="Faces Configuration Only"/>
+    <Scope Scope="Project">
+        <Node id="restaurante/CadastrarRestaurante.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="funcionario/ListFuncionario.xhtml" x="400" y="450" zoom="true"/>
+        <Node id="funcionario/CadastrarFuncionario.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="restaurante/ListRestaurante.xhtml" x="900" y="300" zoom="true"/>
+        <Node id="MenuBarTemplate.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="pedido/CadastrarPedido.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="pedido/ListPedido.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="funcionarioPedido/ListFuncionarioPedido.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="funcionarioPedido/CadastrarFuncionarioPedido.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="cidade/ListCidade.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="prato/ListPrato.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="cidade/CadastrarCidade.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="MenuPrincipalTemplate.xhtml" x="650" y="150" zoom="true"/>
+    </Scope>
+    <Scope Scope="All Faces Configurations"/>
+</Scene>

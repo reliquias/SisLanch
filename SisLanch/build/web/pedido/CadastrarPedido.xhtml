@@ -1,0 +1,59 @@
+<ui:composition template="/MenuPrincipalTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:define name="centro">
+        <p:layoutUnit position="center" scrollable="true">
+            <h:form prependId="false">
+                <p:growl id="msg" showDetail="true"/>
+                <p:panel header="#{msg.ped_labelCad}" id="func">
+                    <h:panelGrid columns="1">
+                        <h:outputLabel value="#{msg.ped_restaurante}" for="idRestaurante"/>
+
+                        <c:if test="#{pedidoMB.pedido.funcionarioPedidoCollection.size() > 0}" >
+                            <h:outputText value="#{pedidoMB.pedido.restaurante.nome}" id="idRestaurante"/>
+                        </c:if>
+                        <c:if test="#{pedidoMB.pedido.funcionarioPedidoCollection.size() == 0}" >
+                            <h:selectOneMenu id="idRestaurante" value="#{pedidoMB.pedido.restaurante}" title="Restaurantes" converter="simpleEntityConverter">
+                                <f:selectItems value="#{restauranteMB.itemsAvailableSelectOne}"/>
+                            </h:selectOneMenu>
+                        </c:if>
+
+                        <h:outputLabel value="#{msg.rest_endereco}" for="idEndereco"/>
+                        <h:outputText value="#{pedidoMB.pedido.restaurante.endereco}" id="idEndereco"/>
+                        <h:outputLabel value="#{msg.rest_numero}" for="idNumero"/>
+                        <h:outputText value="#{pedidoMB.pedido.restaurante.numero}" id="idNumero"/>
+                        <h:outputLabel value="#{msg.rest_bairro}" for="idBairro"/>
+                        <h:outputText value="#{pedidoMB.pedido.restaurante.bairro}" id="idBairro"/>
+                        <h:outputLabel value="#{msg.rest_fone}" for="idFone"/>
+                        <h:outputText value="#{pedidoMB.pedido.restaurante.fone}" id="idFone"/>
+                        <h:outputLabel value="#{msg.ped_dataPedido}" for="idData"/>
+                        <p:calendar id="idData" value="#{pedidoMB.pedido.dataPedido}" effect="fadeIn" pattern="dd/MM/yyyy" locale="pt,BR">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:calendar>
+                        <h:inputHidden value="#{pedidoMB.pedido.quantidadeTotal}"/>
+                        <h:inputHidden value="#{pedidoMB.pedido.valorSaldo}"/>
+                        <h:inputHidden value="#{pedidoMB.pedido.valorTotal}" />
+                        <h:inputHidden value="#{pedidoMB.pedido.valorTroco}" />
+                        <h:outputText/> <h:outputText/>
+
+                        <c:if test="#{pedidoMB.pedido.id != null}" >  
+                               <ui:include src="/funcionarioPedido/ListFuncionarioPedido.xhtml"/>
+                        </c:if> 
+                        <c:if test="#{pedidoMB.pedido.id == null}" >
+                            <h:outputText value="Grave o pedido para poder adicionar os Pratos"/>
+                        </c:if>
+
+                        <p:commandButton ajax="false" action="#{pedidoMB.adicionarOuAtualizar}" value="#{msg.btn_salvar}"/>
+                        <p:messages id="msgs"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </p:layoutUnit>
+    </ui:define>
+</ui:composition>
+

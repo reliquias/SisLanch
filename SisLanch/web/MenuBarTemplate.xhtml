@@ -1,0 +1,21 @@
+<ui:fragment
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.prime.com.tr/ui"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+    <f:loadBundle basename="br.com.reliquias.SisLanch.idiomas.mensagens" var="msg"/>
+    <h:form>
+        <p:menubar>
+            <p:submenu label="#{msg.menu_cadastro}">
+                <p:menuitem value="#{msg.menu_funcionario}"    url="http://localhost:8080/SisLanch/faces/funcionario/ListFuncionario.xhtml"/>
+                <p:menuitem value="#{msg.menu_cidade}"         url="http://localhost:8080/SisLanch/faces/cidade/ListCidade.xhtml"/>
+                <p:menuitem value="#{msg.menu_restaurante}"    url="http://localhost:8080/SisLanch/faces/restaurante/ListRestaurante.xhtml"/>
+            </p:submenu>
+            <p:submenu label="#{msg.menu_pedido}">
+                <p:menuitem value="#{msg.menu_listar}"    url="http://localhost:8080/SisLanch/faces/pedido/ListPedido.xhtml"/>
+            </p:submenu>
+        </p:menubar>
+    </h:form>
+</ui:fragment>

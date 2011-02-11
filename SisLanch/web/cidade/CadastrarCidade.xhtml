@@ -1,0 +1,28 @@
+<ui:composition template="/MenuPrincipalTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="centro">
+        <p:layoutUnit position="center">
+            <h:form>
+                <p:growl id="msg" showDetail="true"/>
+                <p:panel header="Cadastro de Cidades">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Nome" for="nome"/>
+                        <h:inputText id="nome" value="#{cidadeMB.cidade.nome}" required="true" requiredMessage="Campo [Nome] obrigatório"/>
+                        <h:outputLabel value="Estado" for="estado"/>
+                        <h:selectOneMenu id="estado" value="#{cidadeMB.cidade.estado}">
+                            <f:selectItems value="#{cidadeMB.estados}"/>
+                        </h:selectOneMenu>
+                        <p:commandButton value="Salvar" ajax="false" action="#{cidadeMB.adicionaOuAtualiza}"/>
+                    </h:panelGrid>
+<!--                    <p:messages id="msgs"/>-->
+                </p:panel>
+            </h:form>
+        </p:layoutUnit>
+    </ui:define>
+</ui:composition>
+

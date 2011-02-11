@@ -1,0 +1,73 @@
+<ui:composition template="/MenuPrincipalTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="centro">
+        <p:layoutUnit position="center">
+            <h:form prependId="false">
+                <p:growl id="msg" showDetail="true"/>
+                <p:panel header="#{msg.rest_label}">
+                    <p:dataTable id="rest" value="${restauranteMB.listarTodas}" var="restaurantes" paginator="true" rows="10" selectionMode="single" dynamic="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" selection="#{restauranteMB.restaurante}" rowsPerPageTemplate="5,10,15">
+                        <p:column sortBy="#{restaurantes.nome}" filterBy="#{restaurantes.nome}">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.rest_nome}"/>
+                            </f:facet>
+                            <h:outputText value="#{restaurantes.nome}"/>
+                        </p:column>
+                        <p:column sortBy="#{restaurantes.bairro}" filterBy="#{restaurantes.bairro}">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.rest_bairro}"/>
+                            </f:facet>
+                            <h:outputText value="#{restaurantes.bairro}"/>
+                        </p:column>
+                        <p:column sortBy="#{restaurantes.fone}" filterBy="#{restaurantes.fone}">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.rest_fone}"/>
+                            </f:facet>
+                            <h:outputText value="#{restaurantes.fone}"/>
+                        </p:column>
+                        <p:column sortBy="#{restaurantes.cidade.nome}" filterBy="#{restaurantes.cidade.nome}">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.rest_cidade}"/>
+                            </f:facet>
+                            <h:outputText value="#{restaurantes.cidade.nome}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <f:facet name="footer">
+                        <p:commandButton action="#{restauranteMB.preparaCadastrar}" value="#{msg.btn_Novo}" ajax="false"/>
+                        <p:commandButton action="#{restauranteMB.preparaEditar}"    value="#{msg.btn_alterar}" ajax="false"/>
+                        <p:commandButton actionListener="#{restauranteMB.remover}" value="#{msg.btn_excluir}" update="rest"/>
+                    </f:facet>
+                    <h:messages/>
+                </p:panel>
+            </h:form>
+    </p:layoutUnit>
+
+        <p:dialog header="#{msg.rest_labelCad}" widgetVar="dialogRestaurantes" resizable="false" modal="true" showEffect="slide" width="610">
+            <h:form prependId="false">
+                <h:panelGrid id="infoRest" columns="2" style="margin-bottom: 10px">
+                    <h:outputLabel value="#{msg.rest_nome}" for="nome"/>
+                    <h:inputText id="nome" value="#{restauranteMB.restaurante.nome}" required="true" requiredMessage="Campo [Nome] obrigatório" size="50"/>
+                    <h:outputLabel value="#{msg.rest_endereco}" for="endereco"/>
+                    <h:inputText id="endereco" value="#{restauranteMB.restaurante.endereco}" size="50" />
+                    <h:outputLabel value="#{msg.rest_numero}" for="numero"/>
+                    <h:inputText id="numero" value="#{restauranteMB.restaurante.numero}" size="7" />
+                    <h:outputLabel value="#{msg.rest_bairro}" for="bairro"/>
+                    <h:inputText id="bairro" value="#{restauranteMB.restaurante.bairro}" />
+                    <h:outputLabel value="#{msg.rest_fone}" for="fone"/>
+                    <h:inputText id="fone" value="#{restauranteMB.restaurante.fone}" />
+                    <h:outputLabel value="#{msg.rest_cidade}" for="idCidade"/>
+                    <h:selectOneMenu id="idCidade" value="#{restauranteMB.restaurante.cidade}" title="Cidades" converter="simpleEntityConverter">
+                        <f:selectItems value="#{cidadeMB.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <p:commandButton update="rest" oncomplete="dialogRestaurantes.hide()" actionListener="#{restauranteMB.adicionaOuAtualiza}" value="#{msg.btn_salvar}"/>
+                    <p:commandButton  ajax="false" oncomplete="dialogRestaurantes.hide()" action="#{restauranteMB.listarPratos}" value="#{msg.btn_pratos}"/>
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </ui:define>
+    
+</ui:composition>

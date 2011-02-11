@@ -1,0 +1,87 @@
+<ui:composition template="/MenuPrincipalTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="centro">
+        <p:layoutUnit position="center">
+            <h:form prependId="false">
+                <p:growl id="msg" showDetail="true"/>
+                <p:panel header="#{msg.func_label}">
+                    <p:dataTable id="funcionario" value="${funcionarioMB.listarTodos}" var="funcionarios" paginator="true" rows="10" selectionMode="single" dynamic="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" selection="#{funcionarioMB.funcionario}" rowsPerPageTemplate="5,10,15" onselectComplete="funcionarioDialog.show()">
+                        <p:column sortBy="#{funcionarios.nome}" filterBy="#{funcionarios.nome}">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.func_nome}"/>
+                            </f:facet>
+                            <h:outputText value="#{funcionarios.nome}"/>
+                        </p:column>
+                        <p:column sortBy="#{funcionarios.cargo}" filterBy="#{funcionarios.cargo}">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.func_cargo}"/>
+                            </f:facet>
+                            <h:outputText value="#{funcionarios.cargo}"/>
+                        </p:column>
+                        <p:column sortBy="#{funcionarios.fone}" filterBy="#{funcionarios.fone}">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.func_fone}"/>
+                            </f:facet>
+                            <h:outputText value="#{funcionarios.fone}"/>
+                        </p:column>
+                        <p:column sortBy="#{funcionarios.cidade.nome}" filterBy="#{funcionarios.cidade.nome}">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.func_cidade}"/>
+                            </f:facet>
+                            <h:outputText value="#{funcionarios.cidade.nome}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <f:facet name="footer">
+                        <p:commandButton actionListener="#{funcionarioMB.preparaCadastrar}" value="#{msg.btn_Novo}" update="infoFunc" oncomplete="dialogFuncionario.show()"/>
+                        <p:commandButton actionListener="#{funcionarioMB.preparaEditar}" value="#{msg.btn_alterar}" update="infoFunc" oncomplete="dialogFuncionario.show()"/>
+                        <p:commandButton actionListener="#{funcionarioMB.Remover}" value="#{msg.btn_excluir}" update="funcionario"/>
+                        <h:commandLink>
+                            <f:setPropertyActionListener target="#{funcionarioMB.tipoRelatorio}"	value="1" />
+                            <p:fileDownload value="#{funcionarioMB.arquivoRetorno}" />
+                            <h:graphicImage library="img" name="pdf.png" title="Imprimir PDF"/>
+			</h:commandLink>
+			<h:commandLink>
+                            <f:setPropertyActionListener target="#{funcionarioMB.tipoRelatorio}" value="2" />
+                            <p:fileDownload value="#{funcionarioMB.arquivoRetorno}" />
+                            <h:graphicImage library="img" name="excel.png" title="Imprimir Excel" />
+			</h:commandLink>
+			<h:commandLink>
+                            <f:setPropertyActionListener target="#{funcionarioMB.tipoRelatorio}" value="3" />
+                            <p:fileDownload value="#{funcionarioMB.arquivoRetorno}" />
+                            <h:graphicImage library="img" name="html.png" title="Imprimir HTML" />
+			</h:commandLink>
+			<h:commandLink>
+                            <f:setPropertyActionListener target="#{funcionarioMB.tipoRelatorio}" value="4" />
+                            <p:fileDownload value="#{funcionarioMB.arquivoRetorno}" />
+                            <h:graphicImage library="img" name="ods.png" title="Imprimir Planilha Open Office" />
+			</h:commandLink>
+                    </f:facet>
+                    <h:messages/>
+                </p:panel>
+            </h:form>
+        </p:layoutUnit>
+        <p:dialog header="#{msg.func_labelCad}" widgetVar="dialogFuncionario" resizable="false" modal="true" showEffect="slide" width="600">
+            <h:form prependId="false">
+                <h:panelGrid id="infoFunc" columns="2" style="margin-bottom: 10px">
+                    <h:outputLabel value="#{msg.func_nome}" for="nome"/>
+                    <h:inputText id="nome" value="#{funcionarioMB.funcionario.nome}" required="true" requiredMessage="Campo [Nome] obrigatório" size="40"/>
+                    <h:outputLabel value="#{msg.func_cargo}" for="cargo"/>
+                    <h:inputText id="cargo" value="#{funcionarioMB.funcionario.cargo}" />
+                    <h:outputLabel value="#{msg.func_fone}" for="fone"/>
+                    <h:inputText id="fone" value="#{funcionarioMB.funcionario.fone}" />
+                    <h:outputLabel value="#{msg.func_cidade}" for="idCidade"/>
+                    <h:selectOneMenu id="idCidade" value="#{funcionarioMB.funcionario.cidade}" title="Cidades" converter="simpleEntityConverter">
+                        <f:selectItems value="#{cidadeMB.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <p:commandButton update="funcionario" oncomplete="dialogFuncionario.hide()" actionListener="#{funcionarioMB.AdicionaOuAtualiza}" value="#{msg.btn_salvar}"/>
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </ui:define>
+
+</ui:composition>

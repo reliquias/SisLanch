@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">-->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="css/skin.css"/>
+        <title>Reliquias</title>
+    </h:head>
+
+    <h:body>
+       <f:loadBundle basename="br.com.reliquias.SisLanch.idiomas.mensagens" var="msg"/>
+       <p:layout fullPage="true">
+                <ui:insert name="menu">
+                    <p:layoutUnit collapsible="true" position="top" height="200" header="Reliquias - SisLanch 2011" resizable="true">
+                        <ui:include src="MenuBarTemplate.xhtml"/>
+<!--                        <p:graphicImage id="teto" value="/resources/img/menuimg.jpg" height="150" width="1900"/>-->
+                    </p:layoutUnit>
+                </ui:insert>
+                <ui:insert name="esquerda" id="esq">
+                    <p:layoutUnit collapsible="true" position="left" width="250" header="#{msg.menu_atalhos}" resizable="true">
+<!--                        <p:graphicImage id="esq" value="/resources/img/lateral.jpg"/>-->
+                    </p:layoutUnit>
+                </ui:insert>
+                <ui:insert name="direita" id="dir">
+                    <p:layoutUnit collapsible="true" position="right" width="325" header="#{msg.menu_ferramentas}" resizable="true">
+                        <p:calendar mode="inline" navigator="none" effect="fade" effectDuration="10000" showButtonPanel="true" showOtherMonths="true"/>
+<!--                        <p:graphicImage id="dir" value="/resources/img/lateral2.jpg"/>-->
+                    </p:layoutUnit>
+                </ui:insert>
+                <ui:insert name="centro" id="centro">
+                    <p:layoutUnit collapsible="true" position="center">
+                        <p:graphicImage id="centro" value="/resources/img/lateral.jpg"/>
+                    </p:layoutUnit>
+                </ui:insert>
+                <ui:insert name="Rodape" id="rodape">
+                    <p:layoutUnit collapsible="true" position="bottom" height="33" header="wreliquias@hotmail.com" resizable="true">
+                    </p:layoutUnit>
+                </ui:insert>
+            </p:layout>
+
+       
+    </h:body>
+</html>

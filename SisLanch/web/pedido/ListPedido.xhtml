@@ -1,0 +1,55 @@
+<ui:composition template="/MenuPrincipalTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="centro">
+        <p:layoutUnit position="center">
+            <h:form prependId="false">
+                <p:growl id="msg" showDetail="true"/>
+                <p:panel header="#{msg.ped_label}">
+                    <p:dataTable id="pedido" value="${pedidoMB.listarTodos}" var="pedidos" paginator="true" rows="10" selectionMode="single" dynamic="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" selection="#{pedidoMB.pedido}" rowsPerPageTemplate="5,10,15">
+                        <p:column sortBy="#{pedidos.dataPedido}" filterBy="#{pedidos.dataPedido}" >
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.ped_dataPedido}"/>
+                            </f:facet>
+                            <h:outputText value="#{pedidos.dataPedido.getTime()}">
+                                <f:convertDateTime pattern="EEE, dd MMM, yyyy" locale="pt,BR"/>
+                            </h:outputText>
+                            
+                        </p:column>
+                        <p:column sortBy="#{pedidos.restaurante.nome}" filterBy="#{pedidos.restaurante.nome}">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.ped_restaurante}"/>
+                            </f:facet>
+                            <h:outputText value="#{pedidos.restaurante.nome}"/>
+                        </p:column>
+                        <p:column sortBy="#{pedidos.quantidadeTotal}" filterBy="#{pedidos.quantidadeTotal}">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.ped_quantidade}"/>
+                            </f:facet>
+                            <h:outputText value="#{pedidos.quantidadeTotal}"/>
+                        </p:column>
+                        <p:column sortBy="#{pedidos.valorTotal}" filterBy="#{pedidos.valorTotal}">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.ped_total}"/>
+                            </f:facet>
+                            <h:outputText value="#{pedidos.valorTotal}" >
+                                <f:convertNumber currencySymbol="R$" locale="pt_Br" type="currency"/>
+                            </h:outputText>
+                        </p:column>
+                    </p:dataTable>
+                    <f:facet name="footer">
+                        <p:commandButton action="#{pedidoMB.preparaCadastrar}" value="#{msg.btn_Novo}" ajax="false"/>
+                        <p:commandButton action="#{pedidoMB.preparaEditar}"    value="#{msg.btn_alterar}" ajax="false"/>
+                        <p:commandButton actionListener="#{pedidoMB.remover}" value="#{msg.btn_excluir}" update="pedido"/>
+                    </f:facet>
+                    <h:messages/>
+                </p:panel>
+            </h:form>
+        </p:layoutUnit>
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,72 @@
+<ui:composition template="/MenuPrincipalTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="centro">
+        <p:layoutUnit position="center">
+            <h:form prependId="false">
+                <p:growl id="msg" showDetail="true"/>
+                <p:panel header="#{msg.cid_label}">
+                    <p:dataTable id="cidade" value="${cidadeMB.listarTodas}" var="cidades" paginator="true" rows="10" selectionMode="single" dynamic="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" selection="#{cidadeMB.cidade}" rowsPerPageTemplate="5,10,15">
+                        <p:column sortBy="#{cidades.nome}" filterBy="#{cidades.nome}">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.cid_nome}"/>
+                            </f:facet>
+                            <h:outputText value="#{cidades.nome}"/>
+                        </p:column>
+                        <p:column sortBy="#{cidades.estado}" filterBy="#{cidades.estado}">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.cid_estado}"/>
+                            </f:facet>
+                            <h:outputText value="#{cidades.estado}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <f:facet name="footer">
+                        <p:commandButton actionListener="#{cidadeMB.preparaCadastrar}" value="#{msg.btn_Novo}" update="infoCid"  oncomplete="dialogCidade.show()"/>
+                        <p:commandButton actionListener="#{cidadeMB.preparaEditar}"    value="#{msg.btn_alterar}" update="infoCid"  oncomplete="dialogCidade.show()"/>
+                        <p:commandButton actionListener="#{cidadeMB.remover}" value="#{msg.btn_excluir}" update="cidade" />
+                        <h:commandLink>
+                            <f:setPropertyActionListener target="#{cidadeMB.tipoRelatorio}"	value="1" />
+                            <p:fileDownload value="#{cidadeMB.arquivoRetorno}" />
+                            <h:graphicImage library="img" name="pdf.png" title="Imprimir PDF"/>
+			</h:commandLink>
+			<h:commandLink>
+                            <f:setPropertyActionListener target="#{cidadeMB.tipoRelatorio}" value="2" />
+                            <p:fileDownload value="#{cidadeMB.arquivoRetorno}" />
+                            <h:graphicImage library="img" name="excel.png" title="Imprimir Excel" />
+			</h:commandLink>
+			<h:commandLink>
+                            <f:setPropertyActionListener target="#{cidadeMB.tipoRelatorio}" value="3" />
+                            <p:fileDownload value="#{cidadeMB.arquivoRetorno}" />
+                            <h:graphicImage library="img" name="html.png" title="Imprimir HTML" />
+			</h:commandLink>
+			<h:commandLink>
+                            <f:setPropertyActionListener target="#{cidadeMB.tipoRelatorio}" value="4" />
+                            <p:fileDownload value="#{cidadeMB.arquivoRetorno}" />
+                            <h:graphicImage library="img" name="ods.png" title="Imprimir Planilha Open Office" />
+			</h:commandLink>
+                    </f:facet>
+                    <h:messages/>
+                </p:panel>
+            </h:form>
+        </p:layoutUnit>
+
+        <p:dialog header="#{msg.cid_labelCad}" widgetVar="dialogCidade" resizable="false" modal="true" showEffect="slide" width="500">
+            <h:form prependId="false">
+                <h:panelGrid id="infoCid" columns="2" style="margin-bottom: 10px">
+                    <h:outputLabel value="#{msg.cid_nome}" for="nome"/>
+                    <h:inputText id="nome" value="#{cidadeMB.cidade.nome}" required="true" requiredMessage="Campo [Nome] obrigatório" size="30"/>
+                    <h:outputLabel value="#{msg.cid_estado}" for="estado"/>
+                    <h:selectOneMenu id="estado" value="#{cidadeMB.cidade.estado}">
+                        <f:selectItems value="#{cidadeMB.estados}"/>
+                    </h:selectOneMenu>
+                    <p:commandButton update="cidade" oncomplete="dialogCidade.hide()" actionListener="#{cidadeMB.adicionaOuAtualiza}" value="#{msg.btn_salvar}"/>
+                    <h:messages/>
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </ui:define>
+</ui:composition>

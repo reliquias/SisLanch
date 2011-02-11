@@ -1,0 +1,81 @@
+<ui:fragment
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.prime.com.tr/ui">
+    <h:form>
+        <p:panel header="#{msg.funcPed_label}">
+            <p:dataTable id="funcPratos" value="#{funcionarioPedidoMB.funcionariosPedido}" var="funcionarios" paginator="true" rows="10" selectionMode="single" dynamic="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" selection="#{funcionarioPedidoMB.funcionarioPedido}" rowsPerPageTemplate="5,10,15">
+                <p:column sortBy="#{funcionarios.funcionario.nome}" filterBy="#{funcionarios.funcionario.nome}">
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.funcPed_funcionario}"/>
+                    </f:facet>
+                    <h:outputText value="#{funcionarios.funcionario.nome}"/>
+                </p:column>
+                <p:column sortBy="#{funcionarios.prato.nome}" filterBy="#{funcionarios.prato.nome}">
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.funcPed_prato}"/>
+                    </f:facet>
+                    <h:outputText value="#{funcionarios.prato.nome}"/>
+                </p:column>
+                <p:column sortBy="#{funcionarios.quantidade}" filterBy="#{funcionarios.quantidade}" >
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.funcPed_quantidade}"/>
+                    </f:facet>
+                    <h:outputText value="#{funcionarios.quantidade}"/>
+                </p:column>
+                <p:column sortBy="#{funcionarios.dinheiro}" filterBy="#{funcionarios.dinheiro}" >
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.funcPed_dinheiro}"/>
+                    </f:facet>
+                    <h:outputText value="#{funcionarios.dinheiro}">
+                        <f:convertNumber currencySymbol="R$" locale="pt_Br" type="currency"/>
+                    </h:outputText>
+                </p:column>
+                <p:column sortBy="#{funcionarios.valor}" filterBy="#{funcionarios.valor}" >
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.funcPed_valor}"/>
+                    </f:facet>
+                    <h:outputText value="#{funcionarios.valor}" >
+                        <f:convertNumber currencySymbol="R$" locale="pt_Br" type="currency"/>
+                    </h:outputText>
+                </p:column>
+                <p:column sortBy="#{funcionarios.troco}" filterBy="#{funcionarios.troco}" >
+                    <f:facet name="header">
+                        <h:outputText value="#{msg.funcPed_troco}"/>
+                    </f:facet>
+                    <h:outputText value="#{funcionarios.troco}" >
+                        <f:convertNumber currencySymbol="R$" locale="pt_Br" type="currency"/>
+                    </h:outputText>
+                </p:column>
+            </p:dataTable>
+
+            <h:panelGrid columns="16" style="padding-bottom: inherit">
+                <h:outputLabel value="#{msg.ped_quantidade}" for="idQuantidade"/>
+                <h:outputLabel value=" "/>
+                <h:outputText value="#{pedidoMB.pedido.quantidadeTotal}" id="idQuantidade"/>
+                <h:outputLabel value=" | "/>
+                <h:outputLabel value="#{msg.ped_saldo}" for="idSaldo"/>
+                <h:outputLabel value=" "/>
+                <h:outputText value="#{pedidoMB.pedido.valorSaldo}" id="idSaldo"/>
+                <h:outputLabel value=" | "/>
+                <h:outputLabel value="#{msg.ped_total}" for="idTotal"/>
+                <h:outputLabel value=" "/>
+                <h:outputText value="#{pedidoMB.pedido.valorTotal}" id="idTotal"/>
+                <h:outputLabel value=" | "/>
+                <h:outputLabel value="#{msg.ped_troco}" for="idTroco"/>
+                <h:outputLabel value=" "/>
+                <h:outputText value="#{pedidoMB.pedido.valorTroco}" id="idTroco"/>
+                <h:outputLabel value=" | "/>
+            </h:panelGrid>
+
+            <f:facet name="footer">
+                <p:commandButton action="#{funcionarioPedidoMB.preparaCadastrar}" value="#{msg.btn_Novo}" ajax="false"/>
+                <p:commandButton action="#{funcionarioPedidoMB.preparaEditar}" value="#{msg.btn_alterar}" ajax="false"/>
+                <p:commandButton action="#{funcionarioPedidoMB.Remover}" value="#{msg.btn_excluir}" update="funcPratos" ajax="false"/>
+            </f:facet>
+
+        </p:panel>
+    </h:form>
+</ui:fragment>

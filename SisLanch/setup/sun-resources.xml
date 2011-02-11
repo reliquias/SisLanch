@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE resources PUBLIC "-//Sun Microsystems, Inc.//DTD Application Server 9.0 Resource Definitions //EN" "http://www.sun.com/software/appserver/dtds/sun-resources_1_3.dtd">
+<resources>
+    <jdbc-connection-pool allow-non-component-callers="false" associate-with-thread="false" connection-creation-retry-attempts="0" connection-creation-retry-interval-in-seconds="10" connection-leak-reclaim="false" connection-leak-timeout-in-seconds="0" connection-validation-method="auto-commit" datasource-classname="org.apache.derby.jdbc.ClientDataSource" fail-all-connections="false" idle-timeout-in-seconds="300" is-connection-validation-required="false" is-isolation-level-guaranteed="true" lazy-connection-association="false" lazy-connection-enlistment="false" match-connections="false" max-connection-usage-count="0" max-pool-size="32" max-wait-time-in-millis="60000" name="derby_net_sample_appPool" non-transactional-connections="false" pool-resize-quantity="2" res-type="javax.sql.DataSource" statement-timeout-in-seconds="-1" steady-pool-size="8" validate-atmost-once-period-in-seconds="0" wrap-jdbc-objects="false">
+        <property name="serverName" value="localhost"/>
+        <property name="portNumber" value="1527"/>
+        <property name="databaseName" value="sample"/>
+        <property name="User" value="app"/>
+        <property name="Password" value="app"/>
+        <property name="URL" value="jdbc:derby://localhost:1527/sample"/>
+        <property name="driverClass" value="org.apache.derby.jdbc.ClientDriver"/>
+    </jdbc-connection-pool>
+    <jdbc-resource enabled="true" jndi-name="SisLanch" object-type="user" pool-name="derby_net_sample_appPool"/>
+    <jdbc-connection-pool allow-non-component-callers="false" associate-with-thread="false" connection-creation-retry-attempts="0" connection-creation-retry-interval-in-seconds="10" connection-leak-reclaim="false" connection-leak-timeout-in-seconds="0" connection-validation-method="auto-commit" datasource-classname="com.microsoft.sqlserver.jdbc.SQLServerDataSource" fail-all-connections="false" idle-timeout-in-seconds="300" is-connection-validation-required="false" is-isolation-level-guaranteed="true" lazy-connection-association="false" lazy-connection-enlistment="false" match-connections="false" max-connection-usage-count="0" max-pool-size="32" max-wait-time-in-millis="60000" name="microsoft_sql_WANBD_saPool" non-transactional-connections="false" pool-resize-quantity="2" res-type="javax.sql.DataSource" statement-timeout-in-seconds="-1" steady-pool-size="8" validate-atmost-once-period-in-seconds="0" wrap-jdbc-objects="false">
+        <property name="serverName" value="rack1"/>
+        <property name="portNumber" value="1433"/>
+        <property name="databaseName" value="WANBD"/>
+        <property name="User" value="sa"/>
+        <property name="Password" value="asenna"/>
+        <property name="URL" value="jdbc:sqlserver://rack1:1433;databasename=WANBD"/>
+        <property name="driverClass" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+    </jdbc-connection-pool>
+    <jdbc-resource enabled="true" jndi-name="SisLanchPU" object-type="user" pool-name="microsoft_sql_WANBD_saPool"/>
+    <jdbc-resource enabled="true" jndi-name="SisLanchOK" object-type="user" pool-name="microsoft_sql_WANBD_saPool"/>
+    <jdbc-connection-pool allow-non-component-callers="false" associate-with-thread="false" connection-creation-retry-attempts="0" connection-creation-retry-interval-in-seconds="10" connection-leak-reclaim="false" connection-leak-timeout-in-seconds="0" connection-validation-method="auto-commit" datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource" fail-all-connections="false" idle-timeout-in-seconds="300" is-connection-validation-required="false" is-isolation-level-guaranteed="true" lazy-connection-association="false" lazy-connection-enlistment="false" match-connections="false" max-connection-usage-count="0" max-pool-size="32" max-wait-time-in-millis="60000" name="mysql_sislanch_rootPool" non-transactional-connections="false" pool-resize-quantity="2" res-type="javax.sql.DataSource" statement-timeout-in-seconds="-1" steady-pool-size="8" validate-atmost-once-period-in-seconds="0" wrap-jdbc-objects="false">
+        <property name="serverName" value="localhost"/>
+        <property name="portNumber" value="3306"/>
+        <property name="databaseName" value="sislanch"/>
+        <property name="User" value="root"/>
+        <property name="Password" value="w210304"/>
+        <property name="URL" value="jdbc:mysql://localhost:3306/sislanch"/>
+        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+    </jdbc-connection-pool>
+    <jdbc-resource enabled="true" jndi-name="SisLanchMYSQL" object-type="user" pool-name="mysql_sislanch_rootPool"/>
+    <jdbc-connection-pool allow-non-component-callers="false" associate-with-thread="false" connection-creation-retry-attempts="0" connection-creation-retry-interval-in-seconds="10" connection-leak-reclaim="false" connection-leak-timeout-in-seconds="0" connection-validation-method="auto-commit" datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource" fail-all-connections="false" idle-timeout-in-seconds="300" is-connection-validation-required="false" is-isolation-level-guaranteed="true" lazy-connection-association="false" lazy-connection-enlistment="false" match-connections="false" max-connection-usage-count="0" max-pool-size="32" max-wait-time-in-millis="60000" name="mysql_sislanchBD_rootPool" non-transactional-connections="false" pool-resize-quantity="2" res-type="javax.sql.DataSource" statement-timeout-in-seconds="-1" steady-pool-size="8" validate-atmost-once-period-in-seconds="0" wrap-jdbc-objects="false">
+        <property name="serverName" value="localhost"/>
+        <property name="portNumber" value="3306"/>
+        <property name="databaseName" value="sislanchBD"/>
+        <property name="User" value="root"/>
+        <property name="Password" value="asenna"/>
+        <property name="URL" value="jdbc:mysql://localhost:3306/sislanchBD"/>
+        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+    </jdbc-connection-pool>
+    <jdbc-resource enabled="true" jndi-name="SisLanchBD" object-type="user" pool-name="mysql_sislanchBD_rootPool"/>
+</resources>

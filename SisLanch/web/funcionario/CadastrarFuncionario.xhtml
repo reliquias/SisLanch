@@ -1,0 +1,28 @@
+<ui:composition template="/MenuPrincipalTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="centro">
+        <p:layoutUnit position="center">
+            <h:form>
+                <p:growl id="msg" showDetail="true"/>
+                <p:panel header="Cadastro de Funcionarios">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Nome" for="nome"/>
+                        <h:inputText id="nome" value="#{funcionarioControle.funcionario.nome}" required="true" requiredMessage="Campo [Nome] obrigatório"/>
+                        <h:outputLabel value="Cargo" for="cargo"/>
+                        <h:inputText id="cargo" value="#{funcionarioControle.funcionario.cargo}" />
+                        <h:outputLabel value="Telefone" for="fone"/>
+                        <h:inputText id="fone" value="#{funcionarioControle.funcionario.fone}" />
+                        <p:commandButton value="Salvar" ajax="false" action="#{funcionarioControle.Cadastrar}"/>
+                    </h:panelGrid>
+<!--                    <p:messages id="msgs"/>-->
+                </p:panel>
+            </h:form>
+        </p:layoutUnit>
+    </ui:define>
+</ui:composition>
+

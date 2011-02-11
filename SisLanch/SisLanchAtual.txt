@@ -1,0 +1,8 @@
+18/01/2011 - SisLanch
+Ultima atualização: Internacionalizei
+
+
+Problema atual:
+não consigo fazer o Pedido salvar no momento que vou cadastrar um funcionarioPrato.
+Sem relatorios ainda
+preciso dar um refresh no banco, para assim ele calcular os totais do pedido, atualmente eh preciso parar o servidor e salvar o pedido para que ele reconheça a lista de funcionarioPedido.

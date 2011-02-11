@@ -1,0 +1,76 @@
+<ui:composition template="/MenuPrincipalTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="centro">
+        <p:layoutUnit position="center">
+            <h:form prependId="false">
+                <p:growl id="msg" showDetail="true"/>
+                <p:panel header="#{msg.prat_label}">
+                    <p:dataTable id="pratos" value="${pratoMB.pratosRestaurantes}" var="pratos" paginator="true" rows="10" selectionMode="single" dynamic="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" selection="#{pratoMB.prato}" rowsPerPageTemplate="5,10,15" >
+                        <p:column sortBy="#{pratos.restaurante.nome}" filterBy="#{pratos.restaurante.nome}">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.prat_restaurante}"/>
+                            </f:facet>
+                            <h:outputText value="#{pratos.restaurante.nome}"/>
+                        </p:column>
+                        <p:column sortBy="#{pratos.numero}" filterBy="#{pratos.numero}">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.prat_codigo}"/>
+                            </f:facet>
+                            <h:outputText value="#{pratos.numero}"/>
+                        </p:column>
+                        <p:column sortBy="#{pratos.nome}" filterBy="#{pratos.nome}">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.prat_nome}"/>
+                            </f:facet>
+                            <h:outputText value="#{pratos.nome}"/>
+                        </p:column>
+                        <p:column sortBy="#{pratos.valorUnitario}" filterBy="#{pratos.valorUnitario}">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.prat_preco}"/>
+                            </f:facet>
+                            <h:outputText value="#{pratos.valorUnitario}"/>
+                        </p:column>
+                        <p:column sortBy="#{pratos.diaSemana}" filterBy="#{pratos.diaSemana}">
+                            <f:facet name="header">
+                                <h:outputText value="#{msg.prat_diaSemana}"/>
+                            </f:facet>
+                            <h:outputText value="#{pratos.diaSemana}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <f:facet name="footer">
+                        <p:commandButton actionListener="#{pratoMB.preparaCadastrar}" value="#{msg.btn_Novo}" update="infoPratos" oncomplete="dialogPratos.show()"/>
+                        <p:commandButton actionListener="#{pratoMB.preparaEditar}" value="#{msg.btn_alterar}" update="infoPratos" oncomplete="dialogPratos.show()"/>
+                        <p:commandButton actionListener="#{pratoMB.Remover}" value="#{msg.btn_excluir}" update="pratos"/>
+                    </f:facet>
+                    <h:messages/>
+                </p:panel>
+            </h:form>
+    </p:layoutUnit>
+
+        <p:dialog header="#{msg.prat_labelCad}" widgetVar="dialogPratos" resizable="false" modal="true" showEffect="pulsate" width="600">
+            <h:form prependId="false">
+                <h:panelGrid id="infoPratos" columns="2" style="margin-bottom: 10px">
+                    <h:outputLabel value="#{msg.prat_codigo}" for="numero"/>
+                    <h:inputText id="numero" value="#{pratoMB.prato.numero}"/>
+                    <h:outputLabel value="#{msg.prat_nome}" for="nome"/>
+                    <h:inputText id="nome" value="#{pratoMB.prato.nome}" required="true" requiredMessage="Campo [Nome] obrigatório" size="50"/>
+                    <h:outputLabel value="#{msg.prat_descricao}" for="descricao"/>
+                    <h:inputText id="descricao" value="#{pratoMB.prato.descricao}" />
+                    <h:outputLabel value="#{msg.prat_preco}" for="valor"/>
+                    <h:inputText id="valor" value="#{pratoMB.prato.valorUnitario}" />
+                    <h:outputLabel value="#{msg.prat_diaSemana}" for="dia"/>
+                    <h:selectOneMenu id="dia" value="#{pratoMB.prato.diaSemana}">
+                        <f:selectItems value="#{pratoMB.diasSemanas}"/>
+                    </h:selectOneMenu>
+                    <p:commandButton update="pratos" oncomplete="dialogPratos.hide()" actionListener="#{pratoMB.AdicionaOuAtualiza}" value="#{msg.btn_salvar}"/>
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </ui:define>
+    
+</ui:composition>

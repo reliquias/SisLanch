@@ -1,0 +1,38 @@
+<ui:composition template="/MenuPrincipalTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="centro">
+        <p:layoutUnit position="center">
+            <h:form>
+                <p:growl id="msg" showDetail="true"/>
+                <p:panel header="#{msg.funcPed_labelCad}">
+                    <h:panelGrid>
+                    <h:outputLabel value="#{msg.funcPed_funcionario}" for="funcionario"/>
+                    <h:selectOneMenu id="funcionario" value="#{funcionarioPedidoMB.funcionarioPedido.funcionario}" title="Funcionarios" converter="simpleEntityConverter">
+                        <f:selectItems value="#{funcionarioMB.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{msg.funcPed_prato}" for="prato"/>
+                    <h:selectOneMenu id="prato" value="#{funcionarioPedidoMB.funcionarioPedido.prato}" title="Pratos" converter="simpleEntityConverter" required="false">
+                        <f:selectItems value="#{pratoMB.pratosPedido}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{msg.funcPed_quantidade}" for="idQuant"/>
+                    <h:inputText id="idQuant" value="#{funcionarioPedidoMB.funcionarioPedido.quantidade}">
+                    </h:inputText>
+                    <h:outputLabel value="#{msg.funcPed_dinheiro}" for="idDinheiro"/>
+                    <h:inputText id="idDinheiro" value="#{funcionarioPedidoMB.funcionarioPedido.dinheiro}" >
+                    </h:inputText>
+                    <h:inputHidden value="#{funcionarioPedidoMB.funcionarioPedido.valor}" />
+                    <h:inputHidden value="#{funcionarioPedidoMB.funcionarioPedido.troco}" />
+                    <p:commandButton ajax="false" action="#{funcionarioPedidoMB.AdicionaOuAtualizar}" value="#{msg.btn_salvar}"/>
+                    </h:panelGrid>
+                    <!--                    <p:messages id="msgs"/>-->
+                </p:panel>
+            </h:form>
+        </p:layoutUnit>
+    </ui:define>
+</ui:composition>
+
